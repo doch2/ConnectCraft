@@ -30,6 +30,9 @@ dependencies:
 
   dio: ^4.0.0
   get: ^4.1.4
+  permission_handler: ^8.1.4+2
+
+  fluttertoast: ^8.0.8
 
   flutter_secure_storage: ^4.2.1
 
