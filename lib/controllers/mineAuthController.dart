@@ -1,3 +1,4 @@
+import 'package:connectcraft/services/minecraft/auth/microsoftAccount.dart';
 import 'package:connectcraft/services/minecraft/auth/mojangAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
@@ -6,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class MineAuthController extends GetxController {
   MojangAccount mojangAccount = MojangAccount();
+  MicrosoftAccount microsoftAccount = MicrosoftAccount();
+
   
   void mojangAccountLogin(String userName, String userPassword) async {
     bool responseResult = await mojangAccount.getAccountInfo(userName, userPassword);
@@ -32,6 +35,31 @@ class MineAuthController extends GetxController {
         gravity: ToastGravity.BOTTOM
       );
     }
+  }
+
+  void initMicrosoftAuth(BuildContext context) async {
+    microsoftAccount.initMicrosoftAuth(context);
+  }
+
+  void microsoftAccountLogin() async {
+    await microsoftAccount.webLogin();
+    bool xblLoginResult = await microsoftAccount.xblAuth();
+    if (xblLoginResult) {
+      String xstsLoginResult = await microsoftAccount.xstsAuth();
+      if (xstsLoginResult == "success") {
+        await microsoftAccount.minecraftAuth();
+      } else if (xstsLoginResult == "2148916233") {
+        print("xbox 프로필이 없으므로 불가능");
+      } else if (xstsLoginResult == "2148916238") {
+        print("어린이 계정으로 불가능");
+      }
+    } else {
+      print("안됨 ㅌㅌ");
+    }
+  }
+
+  void microsoftAccountLogout() {
+    microsoftAccount.logout();
   }
 
   void callReadStoragePermission() async {

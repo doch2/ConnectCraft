@@ -14,7 +14,10 @@ class MineAccountLogin extends GetWidget<MineAuthController> {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
 
+    controller.initMicrosoftAuth(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +76,24 @@ class MineAccountLogin extends GetWidget<MineAuthController> {
                       ),
                     )
                 )
-            )
+            ),
+            GestureDetector(
+              onTap: () { controller.microsoftAccountLogin(); },
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Color(0xff000000)
+                ),
+                child: Text(
+                  "Microsoft Login",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: _height * 0.15,
+            ),
           ],
         ),
       ),

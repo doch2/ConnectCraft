@@ -31,6 +31,7 @@ dependencies:
   dio: ^4.0.0
   get: ^4.1.4
   permission_handler: ^8.1.4+2
+  flutter_aad_oauth: ^2.1.0
 
   fluttertoast: ^8.0.8
 
